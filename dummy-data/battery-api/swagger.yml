@@ -29,8 +29,8 @@ paths:
                     description: The health status of the battery
                   plugged:
                     type: string
-                    enum: [PLUGGED, UNPLUGGED]
-                    description: Whether the battery is plugged in or not
+                    enum: [UNPLUGGED, PLUGGED_AC, PLUGGED_DOCK, PLUGGED_USB, PLUGGED_WIRELESS]
+                    description: The type of power source connected to the battery
                   status:
                     type: string
                     enum: [CHARGING, DISCHARGING, FULL, NOT_CHARGING, UNKNOWN]
@@ -79,6 +79,7 @@ components:
           enum: [COLD, DEAD, GOOD, OVERHEAT, OVER_VOLTAGE, UNKNOWN, UNSPECIFIED_FAILURE]
         plugged:
           type: string
+          enum: [UNPLUGGED, PLUGGED_AC, PLUGGED_DOCK, PLUGGED_USB, PLUGGED_WIRELESS]
         status:
           type: string
           enum: [CHARGING, DISCHARGING, FULL, NOT_CHARGING, UNKNOWN]
