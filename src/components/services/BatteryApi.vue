@@ -7,31 +7,36 @@
           <template v-if="item.subtitle">
             {{ item.subtitle }}
           </template>
-          <!-- Discharging -->
-          <template v-if="statusText == 'Using'">
-            <i class="fa-solid mr-1" :class="faDischargingIcon(percentage)"></i>
-            <span v-if="percentage">{{ percentage.toFixed() }}%</span>
-            <span class="separator mx-1"> | </span>
-            <i class="fa-solid mr-1 fa-bolt"></i>
-            <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
-          </template>
-          <!-- Charging -->
-          <template v-if="statusText == 'Charging'">
-            <i class="fa-solid mr-1" :class="faChargingIcon(plugged)"></i>
-            <span v-if="percentage">{{ percentage.toFixed() }}%</span>
-            <span class="separator mx-1"> | </span>
-            <i class="fa-solid mr-1 fa-bolt"></i>
-            <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
-          </template>
-          <!-- Full -->
-          <template v-if="statusText == 'Full'">
-            <i class="fa-solid mr-1 fa-car-battery"></i>
-            <span v-if="voltage">{{ voltage / 1000 }}V</span>
-            <span class="separator mx-1"> | </span>
-            <span v-if="temperature">
-              <i class="fa-solid fa-temperature-low mr-1"></i>
-              {{ temperature }}°C
-            </span>
+          <template v-else>
+            <!-- Discharging -->
+            <template v-if="statusText == 'Using'">
+              <i
+                class="fa-solid mr-1"
+                :class="faDischargingIcon(percentage)"
+              ></i>
+              <span v-if="percentage">{{ percentage.toFixed() }}%</span>
+              <span class="separator mx-1"> | </span>
+              <i class="fa-solid mr-1 fa-bolt"></i>
+              <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
+            </template>
+            <!-- Charging -->
+            <template v-if="statusText == 'Charging'">
+              <i class="fa-solid mr-1" :class="faChargingIcon(plugged)"></i>
+              <span v-if="percentage">{{ percentage.toFixed() }}%</span>
+              <span class="separator mx-1"> | </span>
+              <i class="fa-solid mr-1 fa-bolt"></i>
+              <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
+            </template>
+            <!-- Full -->
+            <template v-if="statusText == 'Full'">
+              <i class="fa-solid mr-1 fa-car-battery"></i>
+              <span v-if="voltage">{{ voltage / 1000 }}V</span>
+              <span class="separator mx-1"> | </span>
+              <span v-if="temperature">
+                <i class="fa-solid fa-temperature-low mr-1"></i>
+                {{ temperature }}°C
+              </span>
+            </template>
           </template>
         </template>
         <!-- No Battery Present :D -->
@@ -62,7 +67,7 @@ export default {
     item: Object,
   },
   data: () => ({
-    present: null,
+    present: true,
     // technology: null,
     // health: null,
     plugged: null,
