@@ -2,19 +2,46 @@
   <Generic :item="item">
     <template #content>
       <p class="title is-4">{{ item.name }}</p>
-      <p class="subtitle is-6">
+      <p class="subtitle is-7">
         <template v-if="present">
           <template v-if="item.subtitle">
             {{ item.subtitle }}
           </template>
+          <!-- Discharging -->
+          <template v-if="statusText == 'Using'">
+            <i class="fa-solid mr-1" :class="faDischargingIcon(percentage)"></i>
+            <span v-if="percentage">{{ percentage.toFixed() }}%</span>
+            <span class="separator mx-1"> | </span>
+            <i class="fa-solid mr-1 fa-bolt"></i>
+            <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
+          </template>
+          <!-- Charging -->
+          <template v-if="statusText == 'Charging'">
+            <i class="fa-solid mr-1" :class="faChargingIcon(plugged)"></i>
+            <span v-if="percentage">{{ percentage.toFixed() }}%</span>
+            <span class="separator mx-1"> | </span>
+            <i class="fa-solid mr-1 fa-bolt"></i>
+            <span v-if="current">{{ -current.toFixed() / 1000 }}mA</span>
+          </template>
+          <!-- Full -->
+          <template v-if="statusText == 'Full'">
+            <i class="fa-solid mr-1 fa-car-battery"></i>
+            <span v-if="voltage">{{ voltage / 1000 }}V</span>
+            <span class="separator mx-1"> | </span>
+            <span v-if="temperature">
+              <i class="fa-solid fa-temperature-low mr-1"></i>
+              {{ temperature }}°C
+            </span>
+          </template>
         </template>
+        <!-- No Battery Present :D -->
         <template v-else>No Battery Present :D</template>
       </p>
     </template>
     <template #indicator>
       <template v-if="present">
         <div class="status" :class="statusClass" :title="statusText">
-          {{ statusText }}
+          {{ statusText.toLowerCase() }}
         </div>
       </template>
       <template v-else>
@@ -25,7 +52,7 @@
 </template>
 
 <script>
-// Parts of the code are taken from Ping and OctoPrint service
+// Parts of the code are taken from Pihole, Ping, and OctoPrint service
 import service from "@/mixins/service.js";
 
 export default {
@@ -36,15 +63,15 @@ export default {
   },
   data: () => ({
     present: null,
-    technology: null,
-    health: null,
+    // technology: null,
+    // health: null,
     plugged: null,
     status: null,
     temperature: null,
     voltage: null,
     current: null,
     // currentAverage: null,
-    percentage: null,
+    percentage: 100,
     // level: null,
     // scale: null,
     // chargeCounter: null,
@@ -79,15 +106,15 @@ export default {
       } else {
         switch (this.status) {
           case "FULL":
-            return "Full Battery";
+            return "Full";
           case "OFFLINE":
             return "Offline";
           case "CHARGING":
             return "Charging";
           case "DISCHARGING":
-            return "Discharging";
+            return "Using";
           case "NOT_CHARGING":
-            return "Discharging";
+            return "Using";
           default:
             return "Unknown";
         }
@@ -125,11 +152,43 @@ export default {
         console.log(err);
       }
     },
+    faDischargingIcon: function (percent) {
+      if (percent > 90) {
+        return "fa-battery-full";
+      } else if (percent > 75) {
+        return "fa-battery-three-quarters";
+      } else if (percent > 40) {
+        return "fa-battery-half";
+      } else if (percent > 20) {
+        return "fa-battery-quarter";
+      } else {
+        return "fa-battery-empty";
+      }
+    },
+    faChargingIcon: function (plug) {
+      if (plug == "PLUGGED_AC") {
+        return "fa-plug-circle-bolt";
+      } else if (plug == "PLUGGED_USB") {
+        return "fa-computer";
+      } else if (plug == "PLUGGED_DOCK") {
+        return "fa-tv";
+      } else if (plug == "PLUGGED_WIRELESS") {
+        return "fa-wifi";
+      } else if (plug == "UNPLUGGED") {
+        return "fa-question";
+      } else {
+        return "fa-plug-circle-exclamation";
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.status {
+  font-size: 0.8rem;
+  color: var(--text-title);
+}
 .out-progress:before {
   background-color: hsl(35, 70%, 70%);
   box-shadow: 0 0 5px 1px hsl(35, 70%, 70%);
