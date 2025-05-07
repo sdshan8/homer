@@ -1,0 +1,101 @@
+openapi: 3.0.1
+info:
+  title: Battery API
+  version: 0.1
+  description: An API to monitor battery status.
+
+paths:
+  /status:
+    get:
+      summary: Get the current battery status
+      responses:
+        '200':
+          description: A JSON object representing the battery status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  present:
+                    type: boolean
+                    description: Whether the battery is present
+                  technology:
+                    type: string
+                    description: The battery technology (e.g., Li-ion)
+                  health:
+                    type: string
+                    enum: [GOOD, POOR, etc.]
+                    description: The health status of the battery
+                  plugged:
+                    type: string
+                    enum: [PLUGGED, UNPLUGGED]
+                    description: Whether the battery is plugged in or not
+                  status:
+                    type: string
+                    enum: [CHARGING, NOT_CHARGING, FULL, etc.]
+                    description: The current charging status of the battery
+                  temperature:
+                    type: number
+                    format: float
+                    description: The temperature of the battery in Celsius
+                  voltage:
+                    type: integer
+                    description: The current voltage of the battery in mV
+                  current:
+                    type: integer
+                    description: The current being drawn from the battery in microamps
+                  current_average:
+                    type: integer
+                    description: The average current drawn from the battery in microamps
+                  percentage:
+                    type: integer
+                    description: The current battery percentage
+                  level:
+                    type: integer
+                    description: The current battery level
+                  scale:
+                    type: integer
+                    description: The scale of the battery (e.g., 100 for full)
+                  charge_counter:
+                    type: integer
+                    description: The cumulative charge counter for the battery in microampere-hours
+                  energy:
+                    type: number
+                    format: float
+                    description: The energy left in the battery in watt-hours (null if unknown)
+
+components:
+  schemas:
+    BatteryStatus:
+      type: object
+      properties:
+        present:
+          type: boolean
+        technology:
+          type: string
+        health:
+          type: string
+        plugged:
+          type: string
+        status:
+          type: string
+        temperature:
+          type: number
+          format: float
+        voltage:
+          type: integer
+        current:
+          type: integer
+        current_average:
+          type: integer
+        percentage:
+          type: integer
+        level:
+          type: integer
+        scale:
+          type: integer
+        charge_counter:
+          type: integer
+        energy:
+          type: number
+          format: float
