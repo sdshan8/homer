@@ -59,11 +59,10 @@ paths:
                     description: The scale of the battery (e.g., 100 for full)
                   charge_counter:
                     type: integer
-                    description: The cumulative charge counter for the battery in microampere-hours
+                    description: The cumulative charge counter for the battery in microampere-hours (µAh)
                   energy:
-                    type: number
-                    format: float
-                    description: The energy left in the battery in watt-hours (null if unknown)
+                    type: integer
+                    description: The remaining energy of the battery in nanowatt-hours (nWh). A value of null means the energy is unknown or not tracked.
 
 components:
   schemas:
@@ -101,5 +100,4 @@ components:
         charge_counter:
           type: integer
         energy:
-          type: number
-          format: float
+          type: integer
