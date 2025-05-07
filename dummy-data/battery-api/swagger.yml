@@ -33,7 +33,7 @@ paths:
                     description: Whether the battery is plugged in or not
                   status:
                     type: string
-                    enum: [CHARGING, NOT_CHARGING, FULL, etc.]
+                    enum: [CHARGING, DISCHARGING, FULL, NOT_CHARGING, UNKNOWN]
                     description: The current charging status of the battery
                   temperature:
                     type: number
@@ -81,6 +81,7 @@ components:
           type: string
         status:
           type: string
+          enum: [CHARGING, DISCHARGING, FULL, NOT_CHARGING, UNKNOWN]
         temperature:
           type: number
           format: float
