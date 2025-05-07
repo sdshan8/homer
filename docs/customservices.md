@@ -13,6 +13,7 @@ within Homer:
 
 - [Common options](#common-options)
 - [AdGuard Home](#adguard-home)
+- [Battery API](#battery-api)
 - [CopyToClipboard](#copy-to-clipboard)
 - [Docuseal](#docuseal)
 - [Docker Socket Proxy](#docker-socket-proxy)
@@ -89,7 +90,18 @@ For AdGuard Home you need to set the type to AdGuard, if you have some issues as
   target: "_blank"
   type: "AdGuardHome"
 ```
+## Battery API
 
+For displaying batttery information given by `termux-battery-status` in termux on Homer. check [Swagger file](../dummy-data/battery-api/swagger.yml) if you wanna implement it yourself
+
+Note: You will need a backend to run the command and serve the output as an api endpoint.
+
+```yaml
+- name: "BatteryApi"
+  logo: "assets/tools/sample.png"
+  type: "BatteryApi"
+  endpoint: "/battery-api/status"
+```
 ## Copy to Clipboard
 
 This service displays the same information of a generic one, but shows an icon button on the indicator place (right side) you can click to get the content of the `clipboard` field copied to your clipboard.
