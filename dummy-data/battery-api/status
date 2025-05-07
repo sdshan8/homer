@@ -1,0 +1,10 @@
+{
+  "health": "GOOD",
+  "percentage": 55,
+  "plugged": "UNPLUGGED",
+  "status": "DISCHARGING",
+  "temperature": 35,
+  "current": -282600,
+  "capacity": 4230,
+  "updated_at": "2025-05-07T10:15:00Z"
+}
