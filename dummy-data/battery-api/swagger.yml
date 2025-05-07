@@ -25,7 +25,7 @@ paths:
                     description: The battery technology (e.g., Li-ion)
                   health:
                     type: string
-                    enum: [GOOD, POOR, etc.]
+                    enum: [COLD, DEAD, GOOD, OVERHEAT, OVER_VOLTAGE, UNKNOWN, UNSPECIFIED_FAILURE]
                     description: The health status of the battery
                   plugged:
                     type: string
@@ -76,6 +76,7 @@ components:
           type: string
         health:
           type: string
+          enum: [COLD, DEAD, GOOD, OVERHEAT, OVER_VOLTAGE, UNKNOWN, UNSPECIFIED_FAILURE]
         plugged:
           type: string
         status:
