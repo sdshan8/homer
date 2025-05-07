@@ -132,7 +132,7 @@ export default {
   methods: {
     fetchBattery: async function () {
       try {
-        const response = await this.fetch(`status`);
+        const response = await this.fetch("/");
         this.present = response.present;
         this.technology = response.technology;
         this.health = response.health;
